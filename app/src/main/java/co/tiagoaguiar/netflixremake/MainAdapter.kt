@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import co.tiagoaguiar.netflixremake.model.Movie
@@ -31,8 +32,8 @@ class MainAdapter(private val movies : List<Movie>) : RecyclerView.Adapter<MainA
      class MovieViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
 
          fun bind(movie: Movie){
-             val txt_text: TextView= itemView.findViewById(R.id.txt_test)
-             txt_text.text=movie.coverUrl
+             val imageCover: ImageView= itemView.findViewById(R.id.img_cover)
+             imageCover.setImageResource(movie.coverUrl)
 
          }
 
