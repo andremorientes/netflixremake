@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         // ARQUITETURA MVC (MODEL-VIEW- CONTROLLER)
 
         val movies = mutableListOf<Movie>()
-        for (i in 0 until 60){
+        for (i in 0 until 5){
             val movie= Movie(R.drawable.movie)
             movies.add(movie)
         }
