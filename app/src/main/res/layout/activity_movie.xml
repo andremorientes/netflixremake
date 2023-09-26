@@ -25,4 +25,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        app:layout_constraintTop_toTopOf="@id/move_img"
+        app:layout_constraintEnd_toEndOf="@id/move_img"
+        app:layout_constraintStart_toStartOf="@id/move_img"
+        app:layout_constraintBottom_toBottomOf="@id/move_img"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:src="@drawable/ic_play"/>
+
+    <TextView
+        tools:text="Ola mundo"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:id="@+id/movie_txt_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="22dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/move_img" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
