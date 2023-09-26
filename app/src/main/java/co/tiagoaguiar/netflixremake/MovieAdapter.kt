@@ -1,15 +1,13 @@
 package co.tiagoaguiar.netflixremake
 
 import android.view.LayoutInflater
-import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import co.tiagoaguiar.netflixremake.model.Movie
-
-class MainAdapter(private val movies : List<Movie>) : RecyclerView.Adapter<MainAdapter.MovieViewHolder>(){
+// LISTA HORIZONTAL
+class MovieAdapter(private val movies : List<Movie>) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>(){
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
