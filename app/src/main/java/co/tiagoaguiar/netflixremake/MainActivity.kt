@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         for (j in 0 until 5){
             val movies = mutableListOf<Movie>()
             for (i in 0 until 8){
-                val movie= Movie(R.drawable.movie)
+                val movie= Movie(R.drawable.placerholder_bg)
                 movies.add(movie)
             }
             val category= Category("Cat $j", movies)

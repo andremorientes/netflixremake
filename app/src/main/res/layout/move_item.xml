@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:background="#0f0"
         android:scaleType="centerCrop"
-        android:src="@drawable/movie"
+        android:src="@drawable/placerholder_bg"
         android:layout_marginStart="4dp"
         android:layout_marginEnd="4dp"
         app:layout_constraintDimensionRatio="3:4"
