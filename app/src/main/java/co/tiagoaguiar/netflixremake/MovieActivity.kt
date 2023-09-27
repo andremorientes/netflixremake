@@ -4,13 +4,49 @@ import android.graphics.drawable.LayerDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import co.tiagoaguiar.netflixremake.model.Movie
 
 class MovieActivity : AppCompatActivity() {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie)
+
+        val txtTitle: TextView= findViewById(R.id.movie_txt_title)
+        val txtDesc: TextView= findViewById(R.id.movie_txt_desc)
+        val txtCast: TextView= findViewById(R.id.movie_txt_cast)
+        val rv: RecyclerView= findViewById(R.id.movie_rv_similar)
+
+        txtTitle.text="Batman v Super-Homem: O Despertar da Justiça"
+        txtDesc.text="O confronto entre Superman e Zod em Metrópolis fez a população mundial se" +
+                " dividir sobre a presença de extraterrestres na Terra. Enquanto muitos consideram" +
+                " Superman um novo deus, " +
+                "há aqueles que entendem ser extremamente perigosa a existência de um ser tão "
+
+        txtCast.text= getString(R.string.cast, "Ben Affleck como Bruce Wayne / Batman\n" +
+                "Henry Cavill como Clark Kent / Superman\n" +
+                "Amy Adams como Lois Lane\n" +
+                "Jesse Eisenberg como Lex Luthor")
+
+
+
+        val movies = mutableListOf<Movie>()
+
+            for (i in 0 until 8){
+                val movie= Movie(R.drawable.placerholder_bg)
+                movies.add(movie)
+            }
+
+
+            rv.layoutManager= GridLayoutManager(this, 3)
+        rv.adapter= MovieAdapter(movies ,R.layout.movie_item_similar)
+
 
         val toolbar: Toolbar = findViewById(R.id.movie_toolbar)
         setSupportActionBar(toolbar)
@@ -30,6 +66,8 @@ class MovieActivity : AppCompatActivity() {
         //Set no ImageView
         val coverImg: ImageView= findViewById(R.id.move_img)
         coverImg.setImageDrawable(layerDrawable)
+
+
 
     }
 }
