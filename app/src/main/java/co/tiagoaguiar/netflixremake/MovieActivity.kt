@@ -53,6 +53,7 @@ class MovieActivity : AppCompatActivity() {
 
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title= null
 
         //Busquei o desenhavel (Layer-List)
         val layerDrawable : LayerDrawable = ContextCompat.getDrawable(this,R.drawable.shadows) as LayerDrawable
