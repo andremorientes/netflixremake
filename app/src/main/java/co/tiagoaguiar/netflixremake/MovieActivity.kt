@@ -38,10 +38,7 @@ class MovieActivity : AppCompatActivity() {
 
         val movies = mutableListOf<Movie>()
 
-            for (i in 0 until 8){
-                val movie= Movie(R.drawable.placerholder_bg)
-                movies.add(movie)
-            }
+
 
 
             rv.layoutManager= GridLayoutManager(this, 3)
