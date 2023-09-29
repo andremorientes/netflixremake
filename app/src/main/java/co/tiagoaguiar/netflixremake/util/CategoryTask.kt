@@ -20,6 +20,8 @@ import java.util.concurrent.Executors
 class CategoryTask(private  val callback: Callback) {
 
     private val handler = Handler(Looper.getMainLooper())
+    private  val executor = Executors.newSingleThreadExecutor()
+
     interface Callback{
 
         fun onPreExecute()
@@ -31,7 +33,7 @@ class CategoryTask(private  val callback: Callback) {
         callback.onPreExecute()
 
         //Nesse momento, estamos utilizando a UI-Thread(1)
-        val executor = Executors.newSingleThreadExecutor()
+
         executor.execute {
             var urlConnection: HttpURLConnection?=null
             var buffer :BufferedInputStream?= null
