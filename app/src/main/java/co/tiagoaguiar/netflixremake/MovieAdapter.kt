@@ -7,6 +7,8 @@ import android.widget.ImageView
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import co.tiagoaguiar.netflixremake.model.Movie
+import com.squareup.picasso.Picasso
+
 // LISTA HORIZONTAL
 class MovieAdapter(private val movies : List<Movie>,@LayoutRes private val layoutId: Int
 ) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>(){
@@ -35,7 +37,10 @@ class MovieAdapter(private val movies : List<Movie>,@LayoutRes private val layou
              val imageCover: ImageView= itemView.findViewById(R.id.img_cover)
 
              //TODO : aqui vai ser trocado por uma URL que virá do servidor
-            // imageCover.setImageResource(movie.coverUrl)
+             Picasso.get().
+             load(movie.coverUrl).
+             into(imageCover)
+
 
          }
 

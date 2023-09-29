@@ -72,7 +72,7 @@ class CategoryTask(private  val callback: Callback) {
             } catch (e: IOException) {
                 val message= e.message ?: " erro desconhecido"
                 Log.e("Teste",message , e)
-                callback.onFailure(message)
+                   callback.onFailure(message)
 
             } finally {
                 urlConnection?.disconnect()
@@ -105,7 +105,7 @@ private fun toCategories(jsonAsString: String): List<Category> {
 
             val jsonMovie = jsonMovies.getJSONObject(j)
             val id = jsonMovie.getInt("id")
-            val coverUrl = jsonMovie.getString("cover_urls")
+            val coverUrl = jsonMovie.getString("cover_url")
 
             movies.add(Movie(id, coverUrl))
 
