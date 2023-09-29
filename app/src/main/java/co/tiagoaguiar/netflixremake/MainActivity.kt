@@ -13,7 +13,9 @@ import co.tiagoaguiar.netflixremake.util.CategoryTask
 
 class MainActivity : AppCompatActivity(), CategoryTask.Callback {
 
+    private var categories= mutableListOf<Category>()
     private lateinit var progress: ProgressBar
+    private lateinit var adapter : CategoryAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,13 +23,9 @@ class MainActivity : AppCompatActivity(), CategoryTask.Callback {
         // ARQUITETURA MVC (MODEL-VIEW- CONTROLLER)
 
         progress= findViewById(R.id.progress_bar)
-        val categories= mutableListOf<Category>()
 
 
-        // Na Vertical a lista CategoryAdpater de categorias
-        // e dentro de cada item (TextView e Recycler view na Horizontal)
-        //Cada categoria teremos uma lista de (MovieAdapter) de Filmes (imageView)
-        val adapter= CategoryAdapter(categories)
+         adapter= CategoryAdapter(categories)
         val rv: RecyclerView= findViewById(R.id.rv_main)
         rv.layoutManager=LinearLayoutManager(this)
         rv.adapter= adapter
@@ -42,6 +40,9 @@ class MainActivity : AppCompatActivity(), CategoryTask.Callback {
 
     override fun onResult(categories: List<Category>) {
         //Aqui sera quando o CategoryTask chamara de Volta (CALL BACK)
+        this.categories.clear()
+        this.categories.addAll(categories)
+        adapter.notifyDataSetChanged()
         progress.visibility= View.GONE
     }
 
