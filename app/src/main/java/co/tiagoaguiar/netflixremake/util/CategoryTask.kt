@@ -1,9 +1,13 @@
 package co.tiagoaguiar.netflixremake.util
 
 import android.util.Log
+import java.io.BufferedInputStream
+import java.io.ByteArrayOutputStream
 import java.io.IOException
+import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.URL
+import java.nio.Buffer
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
@@ -19,29 +23,52 @@ class CategoryTask {
 
                 // nesse momento estamos utilizado a NOVA_tread(processo paralelo)(2)
                 val requestURL = URL(url) // Abrir uma url
-                val urlConnection = requestURL.openConnection() as HttpURLConnection // abrir conexão
+                val urlConnection =
+                    requestURL.openConnection() as HttpURLConnection // abrir conexão
                 urlConnection.readTimeout = 2000 // tempo de leitura 2s
                 urlConnection.connectTimeout = 2000 // tempo de conexao 2s
 
                 val statusCode = urlConnection.responseCode
-                if (statusCode> 400){
+                if (statusCode > 400) {
                     throw  IOException("Erro na comunicação com o servidor!")
                 }
 
-                //Forma 1 : simples e rapida de abrir uma conexao HTTP
-
                 val stream = urlConnection.inputStream  // Sequencias de Byte
-                val jsonAsString = stream.bufferedReader().use { it.readText() } // transformar de byte para String
+                //Forma 1 : simples e rapida de abrir uma conexao HTTP
+                //val jsonAsString = stream.bufferedReader().use { it.readText() } // transformar de byte para String
+
+
+                // Forma 2 : Leitura de Byte por Byte
+                val buffer = BufferedInputStream(stream)
+                val jsonAsString = toString(buffer)
 
                 Log.i("Teste", jsonAsString)
 
-            } catch (e: IOException){
-                Log.e("Teste", e.message?: " erro desconhecido", e)
+            } catch (e: IOException) {
+                Log.e("Teste", e.message ?: " erro desconhecido", e)
 
             }
 
 
-
         }
+
+
     }
+}
+
+
+private fun toString(stream: InputStream): String {
+    val bytes = ByteArray(1024)
+    val byteArrayOutString = ByteArrayOutputStream()
+    var read: Int
+    while (true) {
+        read = stream.read(bytes)
+        if (read <= 0) {
+            break
+        }
+        byteArrayOutString.write(bytes, 0, read)
+
+    }
+    return String(byteArrayOutString.toByteArray())
+
 }
