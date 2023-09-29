@@ -1,6 +1,9 @@
 package co.tiagoaguiar.netflixremake.util
 
 import android.util.Log
+import co.tiagoaguiar.netflixremake.model.Category
+import co.tiagoaguiar.netflixremake.model.Movie
+import org.json.JSONObject
 import java.io.BufferedInputStream
 import java.io.ByteArrayOutputStream
 import java.io.IOException
@@ -42,7 +45,10 @@ class CategoryTask {
                 val buffer = BufferedInputStream(stream)
                 val jsonAsString = toString(buffer)
 
-                Log.i("Teste", jsonAsString)
+                //O JSON esta preparado para ser convertido em uma DATA CLASS!!
+                val categories = toCategories(jsonAsString)
+
+                // Log.i("Teste", jsonAsString)
 
             } catch (e: IOException) {
                 Log.e("Teste", e.message ?: " erro desconhecido", e)
@@ -56,19 +62,49 @@ class CategoryTask {
     }
 }
 
+private fun toCategories(jsonAsString: String): List<Category> {
+    val categories = mutableListOf<Category>()
+
+    val jsonRoot = JSONObject(jsonAsString)
+    val jsonCategories = jsonRoot.getJSONArray("category")
+    for (i in 0 until jsonCategories.length()) {
+        val jsonCategory = jsonCategories.getJSONObject(i)
+
+        val title = jsonCategory.getString("title")
+        // NA NOSSA API ESTAMOS A CARREGAR O TITULO DE CATEGORIA
+        val jsonMovies = jsonCategory.getJSONArray("movie")
+
+        val movies = mutableListOf<Movie>()
+
+        for (j in 0 until jsonMovies.length()) {
+
+            val jsonMovie = jsonMovies.getJSONObject(j)
+            val id = jsonMovie.getInt("id")
+            val coverUrl = jsonMovie.getString("cover_urls")
+
+            movies.add(Movie(id, coverUrl))
+
+        }
+        categories.add(Category(title, movies))
+
+    }
+
+
+    return categories
+}
 
 private fun toString(stream: InputStream): String {
     val bytes = ByteArray(1024)
-    val byteArrayOutString = ByteArrayOutputStream()
+    val byteArrayOutPutString = ByteArrayOutputStream()
     var read: Int
     while (true) {
         read = stream.read(bytes)
         if (read <= 0) {
             break
         }
-        byteArrayOutString.write(bytes, 0, read)
+        byteArrayOutPutString.write(bytes, 0, read)
 
     }
-    return String(byteArrayOutString.toByteArray())
+    return String(byteArrayOutPutString.toByteArray())
 
 }
